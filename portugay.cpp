@@ -1,6 +1,7 @@
 // Copyright (c) 1ukidev <leo.monteiro06@live.com>. Licensed under the MIT Licence.
 // See the LICENCE file in the repository root for full licence text.
 
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -100,10 +101,10 @@ int main(int argc, char* argv[]) {
     inputFile.close();
     outputFile.close();
 
-    std::string command = "gcc -x c -O2 -pipe " + outputFileName;
-    int exec = system(command.c_str());
+    std::string compilerCommand = "gcc -x c -O2 -pipe " + outputFileName;
+    int result = std::system(compilerCommand.c_str());
 
-    if(exec == 0) {
+    if(result == 0) {
         return 0;
     } else {
         return 1;
