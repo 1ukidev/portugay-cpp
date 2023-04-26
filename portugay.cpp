@@ -8,28 +8,32 @@
 #include <unordered_map>
 
 void printHelp() {
-    std::cout << "Uso: portugay [-h/--help] [-o NOME_ARQUIVO] ARQUIVO_ENTRADA\n";
-    std::cout << "Um programa inspirado no Portugol para fins educacionais.\n";
-    std::cout << "O programa recebe o texto, traduz para C em um novo arquivo e por fim compila-o usando o GCC.\n\n";
-    std::cout << "Opções:\n";
-    std::cout << "  -h, --help       Exibe esta ajuda.\n";
-    std::cout << "  -o NOME_ARQUIVO  Especifica o nome do arquivo de saída.\n";
-    std::cout << "  -n               Faz com que o arquivo gerado não seja compilado.\n";
+    using namespace std;
+
+    cout << "Uso: portugay [-h/--help] [-o NOME_ARQUIVO] ARQUIVO_ENTRADA\n";
+    cout << "Um programa inspirado no Portugol para fins educacionais.\n";
+    cout << "O programa recebe o texto, traduz para C em um novo arquivo e por fim compila-o usando o GCC.\n\n";
+    cout << "Opções:\n";
+    cout << "  -h, --help       Exibe esta ajuda.\n";
+    cout << "  -o NOME_ARQUIVO  Especifica o nome do arquivo de saída.\n";
+    cout << "  -n               Faz com que o arquivo gerado não seja compilado.\n";
 }
 
 int main(int argc, char* argv[]) {
+    using namespace std;
+
     if (argc < 2) {
-        std::cout << "Erro: Nenhum arquivo de entrada fornecido.\n\n";
+        cout << "Erro: Nenhum arquivo de entrada fornecido.\n\n";
         printHelp();
         return 1;
     }
 
-    std::string inputFileName;
-    std::string outputFileName = "out.c";
+    string inputFileName;
+    string outputFileName = "out.c";
     bool compileOnly = false;
 
     for (int i = 1; i < argc; ++i) {
-        std::string arg = argv[i];
+        string arg = argv[i];
         if (arg == "-h" || arg ==  "--help") {
             printHelp();
             return 0;
@@ -38,7 +42,7 @@ int main(int argc, char* argv[]) {
                 outputFileName = argv[i + 1];
                 ++i;
             } else {
-                std::cout << "Erro: Nome do arquivo de saída não fornecido.\n\n";
+                cout << "Erro: Nome do arquivo de saída não fornecido.\n\n";
                 printHelp();
                 return 1;
             }
@@ -50,24 +54,24 @@ int main(int argc, char* argv[]) {
     }
 
     if (inputFileName.empty()) {
-        std::cout << "Erro: Nenhum arquivo de entrada fornecido.\n\n";
+        cout << "Erro: Nenhum arquivo de entrada fornecido.\n\n";
         printHelp();
         return 1;
     }
 
-    std::ifstream inputFile(inputFileName);
+    ifstream inputFile(inputFileName);
     if (!inputFile) {
-        std::cout << "Erro: Não foi possível abrir o arquivo de entrada.\n";
+        cout << "Erro: Não foi possível abrir o arquivo de entrada.\n";
         return 1;
     }
 
-    std::ofstream outputFile(outputFileName);
+    ofstream outputFile(outputFileName);
     if (!outputFile) {
-        std::cout << "Erro: Não foi possível abrir o arquivo de saída.\n";
+        cout << "Erro: Não foi possível abrir o arquivo de saída.\n";
         return 1;
     }
 
-    std::unordered_map<std::string, std::string> keywords {
+    unordered_map<string, string> keywords {
         { "principal", "main" },
         { "incluir", "#include" },
         { "inteiro", "int" },
@@ -90,14 +94,14 @@ int main(int argc, char* argv[]) {
         { "sistema", "system" },
     };
 
-    std::string line;
-    while (std::getline(inputFile, line)) {
+    string line;
+    while (getline(inputFile, line)) {
         if (line.find("//") == 0 || line.find("/*") == 0) {
             continue;
         }
         for (auto const& [key, value] : keywords) {
             size_t pos = 0;
-            while ((pos = line.find(key, pos)) != std::string::npos) {
+            while ((pos = line.find(key, pos)) != string::npos) {
                 line.replace(pos, key.length(), value);
                 pos += value.length();
             }
@@ -109,8 +113,8 @@ int main(int argc, char* argv[]) {
     outputFile.close();
 
     if (!compileOnly) {
-        const std::string compilerCommand = "gcc -x c -O2 -pipe " + outputFileName;
-        const int result = std::system(compilerCommand.c_str());
+        const string compilerCommand = "gcc -x c -O2 -pipe " + outputFileName;
+        const int result = system(compilerCommand.c_str());
 
         if(result == 0) {
             return 0;
