@@ -16,7 +16,7 @@ void printHelp() {
     cout << "Opções:\n";
     cout << "  -h, --help       Exibe esta ajuda.\n";
     cout << "  -o NOME_ARQUIVO  Especifica o nome do arquivo de saída.\n";
-    cout << "  -n               Faz com que o arquivo gerado não seja compilado.\n";
+    cout << "  -n               Faz com que o arquivo de saída gerado não seja compilado.\n";
 }
 
 int main(int argc, char* argv[]) {
