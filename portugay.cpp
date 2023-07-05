@@ -76,6 +76,7 @@ int main(int argc, char* argv[]) {
         { "incluir", "#include" },
         { "inteiro", "int" },
         { "real", "float" },
+        { "logico", "bool" },
         { "vazio", "void" },
         { "caractere", "char" },
         { "escrever", "printf" },
@@ -116,11 +117,12 @@ int main(int argc, char* argv[]) {
         const string compilerCommand = "gcc -x c -O2 -pipe " + outputFileName;
         const int result = system(compilerCommand.c_str());
 
-        if(result == 0) {
-            return 0;
-        } else {
+        if(result != 0) {
+            cout << "\nErro ao gerar o binário usando o GCC.\n";
             return 1;
         }
+
+        cout << "Binário gerado com sucesso: a.out\n";
     }
 
     return 0;
