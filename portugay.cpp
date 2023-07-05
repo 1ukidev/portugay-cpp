@@ -117,7 +117,7 @@ int main(int argc, char* argv[]) {
         const string compilerCommand = "gcc -x c -O2 -pipe " + outputFileName;
         const int result = system(compilerCommand.c_str());
 
-        if(result != 0) {
+        if (result != 0) {
             cout << "\nErro ao gerar o binário usando o GCC.\n";
             return 1;
         }
