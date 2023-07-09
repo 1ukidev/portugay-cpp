@@ -1,11 +1,21 @@
-all:
-	g++ -O2 -pipe portugay.cpp -o portugay
+CC := g++
+CFLAGS := -O2 -march=native -pipe -std=gnu++17 -Wall
 
-install:
-	cp portugay /usr/local/bin/portugay
+TARGET := portugay
+INSTALL_DIR := /usr/local/bin
+
+.PHONY: all clean install uninstall
+
+all: $(TARGET)
+
+$(TARGET): portugay.cpp
+	$(CC) $(CFLAGS) $^ -o $@
+
+install: $(TARGET)
+	cp $(TARGET) $(INSTALL_DIR)
 
 uninstall:
-	rm /usr/local/bin/portugay
+	rm $(INSTALL_DIR)/$(TARGET)
 
 clean:
-	rm portugay
+	rm $(TARGET)
