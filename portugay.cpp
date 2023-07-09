@@ -7,7 +7,9 @@
 #include <string>
 #include <unordered_map>
 
-void printHelp() {
+void
+printHelp()
+{
     std::cout << "Uso: portugay [-h/--help] [-o NOME_ARQUIVO] ARQUIVO_ENTRADA\n";
     std::cout << "Um programa inspirado no Portugol para fins educacionais.\n";
     std::cout << "O programa recebe o texto, traduz para C em um novo arquivo e por fim compila-o usando o GCC.\n\n";
@@ -17,7 +19,9 @@ void printHelp() {
     std::cout << "  -n               Faz com que o arquivo de saída gerado não seja compilado.\n";
 }
 
-int main(int argc, char* argv[]) {
+int
+main(int argc, char* argv[])
+{
     if (argc < 2) {
         std::cerr << "Erro: Nenhum arquivo de entrada fornecido.\n\n";
         printHelp();
